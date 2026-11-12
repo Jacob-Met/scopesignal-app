@@ -1,0 +1,97 @@
+/* Payment belongs beside the accepted delivery; its record viewer gets a full row. */
+/* The payment is the monetary gate on the project's drawing. */
+.payment-card{
+ --payment-ink:#f1f8ff;--payment-muted:#b8d5f3;--payment-line:#6e9dca;
+ border:1px solid var(--payment-line);border-radius:0;background:#12306b;
+ background-image:linear-gradient(#b8dfff08 1px,transparent 1px),linear-gradient(90deg,#b8dfff08 1px,transparent 1px);
+ background-size:24px 24px;color:var(--payment-ink);padding:24px;align-self:start;
+}
+.payment-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:14px;border-bottom:1px solid #7dabd752}
+.payment-eyebrow{font-size:12px;line-height:1.4;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.payment-status{font-size:12px;line-height:1.4;color:var(--payment-muted);text-align:right}
+.payment-total{
+ position:relative;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:38px;line-height:1.2;font-weight:500;
+ letter-spacing:-1.5px;font-variant-numeric:tabular-nums;margin:24px 0 28px;padding:12px 14px;
+ border-inline:1px solid var(--payment-line);
+ background:linear-gradient(var(--payment-line),var(--payment-line)) left center/8px 1px no-repeat,
+ linear-gradient(var(--payment-line),var(--payment-line)) right center/8px 1px no-repeat;
+}
+.payment-card>button,.payment-card>a,.payment-card .buyer-confirm>button{
+ width:100%;text-align:center;justify-content:center;margin:0;border-radius:0;
+ background:#e8f5ff;color:#12306b;border:1px solid #e8f5ff;font-size:14px;min-height:48px;font-weight:700;
+}
+.payment-card>button:hover:not(:disabled),.payment-card>a:hover,.payment-card .buyer-confirm>button:hover:not(:disabled){background:#fff;filter:none}
+.payment-card button:disabled{opacity:1;background:#315185;border-color:#7395bd;color:#bed1e9}
+.payment-card .payment-check{margin-top:10px;background:transparent;color:var(--payment-ink);border-color:#7395bd}
+.payment-approval{display:flex;text-decoration:none;align-items:center;padding:12px 14px}
+.payment-card .buyer-confirm{margin:0;padding:0;border:0;background:none}
+.payment-card .capture-label{display:flex;gap:12px;align-items:center;margin:0 0 18px;font-size:14px;line-height:1.5;font-weight:500}
+.payment-card .capture-label input{width:20px;height:20px;margin:0;flex:none;accent-color:#d1eeff}
+.payment-card :focus-visible{outline:3px solid #fff;outline-offset:4px}
+.payment-connection{font-size:13px;color:var(--payment-muted);margin:-6px 0 15px}
+.payment-details{margin-top:22px;border-top:1px solid #7dabd752;padding-top:15px}
+.payment-details summary,.accepted-review summary{font-size:13px;cursor:pointer}
+.payment-details summary{color:var(--payment-muted)}
+.payment-details dl{margin:12px 0 0;font-size:12px}
+.payment-details dt{color:var(--payment-muted);margin-top:10px}
+.payment-details dd{margin:3px 0;color:var(--payment-ink);overflow-wrap:anywhere;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.payment-complete{border-left:4px solid #b8e5ff;background-color:#163b77}
+.payment-complete .payment-status{color:#e5f6ff;font-weight:700}
+.payment-complete .payment-total{margin-bottom:0}
+.accepted-review{border-top:1px solid var(--line);padding-top:12px}
+.accepted-review .evidence{font-size:14px;overflow-wrap:anywhere}
+.milestone.has-payment .milestone-identity .state,.milestone.has-payment .milestone-amount{display:none}
+@media(min-width:601px){
+ .milestone.has-payment{grid-template-columns:minmax(0,1fr) minmax(300px,.6fr);grid-template-rows:min-content 1fr min-content;gap:18px 36px}
+ .milestone.has-payment>.milestone-identity,.milestone.has-payment:has(.artifact-inspection[open])>.milestone-identity{grid-column:1;grid-row:1}
+ .milestone.has-payment>.milestone-criteria,.milestone.has-payment:has(.artifact-inspection[open])>.milestone-criteria{grid-column:1;grid-row:2;align-self:start}
+ .milestone.has-payment>.milestone-settlement{grid-column:2;grid-row:1 / span 2}
+ .milestone.has-payment>.milestone-review,.milestone.has-payment:has(.artifact-inspection[open])>.milestone-review{grid-column:1 / -1;grid-row:3}
+}
+@media(max-width:600px){
+ .payment-card{padding:20px;margin-top:0;margin-bottom:18px}
+ .payment-total{font-size:34px}
+ .milestone.has-payment>.milestone-criteria{margin-bottom:18px}
+ .milestone.has-payment .milestone-identity{margin-bottom:16px}
+}
+
+/* The accepted file stays the main surface; payment remains beside it. */
+@media(min-width:601px){
+ .milestone.has-payment{grid-template-columns:minmax(0,1fr) minmax(280px,.48fr);grid-template-rows:min-content min-content min-content}
+ .milestone.has-payment>.milestone-review,.milestone.has-payment:has(.artifact-inspection[open])>.milestone-review{grid-column:1;grid-row:2}
+ .milestone.has-payment>.milestone-criteria,.milestone.has-payment:has(.artifact-inspection[open])>.milestone-criteria{grid-column:1;grid-row:3}
+ .milestone.has-payment>.milestone-settlement{grid-column:2;grid-row:1 / span 3}
+}
+@media(max-width:600px){
+ .milestone.has-payment{display:flex;flex-direction:column}
+ .milestone.has-payment>.milestone-identity{order:0}
+ .milestone.has-payment>.milestone-review{order:1}
+ .milestone.has-payment>.milestone-settlement{order:2;width:100%;box-sizing:border-box}
+ .milestone.has-payment>.milestone-criteria{order:3}
+}
+
+.accepted-payment-jump{display:none}
+.milestone-settlement{scroll-margin-top:76px}
+@media(max-width:600px){.accepted-payment-jump{display:block;margin:8px 0 0;padding-left:0}}
+
+
+/* Keep the accepted decision with its file while payment remains available. */
+.milestone.has-accepted-workspace{display:block}
+.accepted-delivery-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.48fr);gap:28px;align-items:start}
+.accepted-delivery-workspace>.milestone-review{min-width:0}
+.accepted-delivery-context{min-width:0;display:flex;flex-direction:column;gap:20px}
+.accepted-delivery-context .accepted-review{border-top:0;padding-top:0}
+.accepted-delivery-context .accepted-review summary{font-weight:700}
+.accepted-delivery-context .evidence{font-size:14px;line-height:1.6}
+.accepted-delivery-context .payment-card{padding:18px;background-image:none;width:100%;box-sizing:border-box}
+.accepted-delivery-context .payment-total{font-size:28px;margin:14px 0 18px;padding:0;border:0;background:none}
+.accepted-delivery-context .payment-complete .payment-total{margin-bottom:0}
+@media(max-width:959px){
+ .accepted-delivery-workspace{display:flex;flex-direction:column;gap:14px}
+ .accepted-delivery-context{display:contents}
+ .accepted-delivery-context>.milestone-criteria{order:0;width:100%;margin:0}
+ .accepted-delivery-workspace>.milestone-review{order:1;width:100%}
+ .accepted-delivery-context>.milestone-settlement{order:2;width:100%;box-sizing:border-box}
+ .accepted-delivery-context .accepted-review,.accepted-delivery-context .revision-history{margin:0;padding:8px 0}
+ .accepted-delivery-context .accepted-review:not([open])+.revision-history{border-top:0}
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "lantern_publicity",
+    "outputs": [
+      {
+        "id": "g0",
+        "title": "A3 lantern-walk poster"
+      },
+      {
+        "id": "g1",
+        "title": "Lantern-walk email invitation"
+      }
+    ],
+    "brief": "Create an A3 poster for the Eastbank lantern walk.\nWrite the email invitation for the same lantern walk.\nPut “Free entry; book a place first” on both pieces.\nLeave a blank strip along the poster’s bottom edge for partner stickers.\nThe email must use a single “Reserve a place” link and have no attachments.\nWe will approve the work on Wednesday; send invoices to the treasurer.\nShow the sponsor logo only on the small version.",
+    "assigned": [
+      {
+        "output": "g0",
+        "clause_text": "Create an A3 poster for the Eastbank lantern walk."
+      },
+      {
+        "output": "g1",
+        "clause_text": "Write the email invitation for the same lantern walk."
+      }
+    ]
+  }
+]

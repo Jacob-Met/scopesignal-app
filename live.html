@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ScopeSignal</title><link rel="stylesheet" href="./live.css"><link rel="stylesheet" href="./live-settlement.css"><script type="module" src="./live.js"></script><script type="module" src="./src/live-workspace-backup.mjs"></script></head>
+<body data-ready="false" data-mode="compose">
+<a class="skip" href="#main">Skip to workspace</a>
+<header class="app-header"><a class="brand" href="./live.html">ScopeSignal</a><span class="environment">Sandbox</span>
+<nav class="project-toolbar" id="project-toolbar" aria-label="Projects">
+<details id="project-directory"><summary><span>Projects <span id="project-directory-count">0</span></span><strong id="selected-project-name">New project</strong></summary>
+<div class="project-directory-body"><div class="project-directory-filters"><label>Find a project<input id="project-search" type="search" autocomplete="off" placeholder="Project name"></label><label class="project-archive-toggle"><input id="show-archived-projects" type="checkbox"><span id="project-archive-count">Show archived</span></label></div><ul id="project-list"></ul><p id="no-projects">No projects yet.</p></div></details>
+<button id="new-project" class="quiet" type="button">+ New</button><button id="archive-project" class="quiet" type="button" hidden>Archive</button><button id="reopen-project" class="secondary" type="button" hidden>Reopen</button>
+</nav></header>
+<main id="main">
+<div class="workspace-heading"><h1 id="workspace-title">New project</h1></div>
+<p id="archived-project-note" class="archived-project-note" hidden></p>
+<div class="state-tools"><p id="notice" tabindex="-1" role="status" aria-live="polite">Connecting…</p><button type="button" id="refresh-state" class="quiet">Refresh</button><details id="handoff-tools" class="handoff-tools"><summary>Download ↓</summary><div class="handoff-popover"><div class="handoff-menu"><button type="button" id="download-review" class="secondary" disabled>Review only</button><button type="button" id="download-workspace-backup" class="secondary" aria-describedby="workspace-backup-notice">Workspace records backup</button><details class="backup-help"><summary>About workspace backups</summary><p id="workspace-backup-notice" role="status">All saved projects and payment history. Delivery files and unsent drafts are not included.</p><a href="./docs/workspace-backup.md" target="_blank" rel="noopener">How to restore workspace records</a></details></div></div></details></div>
+<details id="restore-workspace" class="panel" hidden><summary>Open a workspace backup</summary><p>Restore saved projects and payment history into this empty workspace. Delivery files and unsent drafts are not included.</p><label>Workspace records backup<input id="workspace-backup-file" type="file" accept=".json,application/json"></label><p id="workspace-restore-notice" role="status"></p><button id="restore-workspace-records" type="button" class="secondary" disabled>Restore workspace records</button></details>
+<section id="incoming-scope" class="panel" hidden aria-labelledby="incoming-title"><h2 id="incoming-title" tabindex="-1">Import project</h2><p id="incoming-summary"></p><ul id="incoming-lines" aria-label="Incoming milestones"></ul><div class="actions"><button id="incoming-apply" type="button" class="primary">Use this draft</button><button id="incoming-discard" type="button" class="quiet">Discard</button></div></section>
+<section id="retained-guide-entry" class="retained-guide-entry" aria-label="Studio guide review" hidden></section>
+<div class="cols">
+<section class="panel" id="composer" aria-label="Draft scope">
+<form id="plan">
+<div class="scope-brief">
+<div class="actions scope-tools"><h2>Brief</h2><button type="button" id="start-own-scope" class="quiet">Clear draft</button></div>
+<label>Project name<input id="project" maxlength="120" required></label>
+<label>Project type<select id="project-kind" aria-label="Project type"><option value="priced">Priced commission</option><option value="review">Review only · no prices</option></select></label>
+<p id="review-only-note" hidden>Review files, record decisions and exchange feedback without prices or payments.</p>
+<label>What are we making?<textarea id="brief" maxlength="8000" rows="4" required></textarea></label>
+<div class="scope-budget"><label>Budget · USD<input id="cap" inputmode="decimal" required></label><div class="suggest-controls"><button type="button" id="suggest" class="secondary">Choose a model</button><button type="button" id="organize-brief" class="quiet">Organize brief</button><button type="button" id="choose-model" class="quiet" hidden>Change model</button><label id="suggest-extended-label" hidden><input id="suggest-extended" type="checkbox"> Allow 90 seconds</label></div></div>
+<p id="suggest-status" class="note" role="status" aria-live="polite"></p>
+<section id="model-connection" class="model-connection" aria-labelledby="model-connection-heading" hidden>
+<div class="actions"><h3 id="model-connection-heading" tabindex="-1">Choose an Ollama model</h3><button type="button" id="close-model-connection" class="quiet">Close</button></div>
+<p id="model-connection-status" role="status" aria-live="polite"></p>
+<label>Ollama model<select id="local-model-choice"><option value="">Choose a model</option></select></label>
+<div class="actions"><button type="button" id="use-local-model" class="secondary" disabled>Use model</button><button type="button" id="refresh-local-models" class="quiet">Refresh models</button></div>
+<details class="model-connection-settings"><summary>Connection settings</summary><label>Server port<input id="local-model-port" inputmode="numeric" maxlength="5" value="11434"></label><a href="https://ollama.com/download" target="_blank" rel="noopener">Get Ollama</a></details>
+<button type="button" id="disconnect-local-model" class="quiet" hidden>Disconnect local model</button>
+</section>
+</div>
+<section class="scope-checkpoints" aria-labelledby="checkpoints-heading">
+<div class="actions"><h2 id="checkpoints-heading">Deliverables</h2><button type="button" id="add" class="quiet">+ Add deliverable</button></div>
+<div id="rows"></div>
+<div class="draft-recovery" hidden><p id="draft-recovery-note" role="status" aria-live="polite"></p><button id="clear-unsent-draft" type="button" class="quiet">Discard draft</button></div>
+<section id="suggestion-preview" class="suggestion-preview" aria-labelledby="suggestion-heading" hidden><div class="suggestion-toolbar"><h3 id="suggestion-heading" tabindex="-1">Suggested work</h3><div class="suggestion-tools"><button type="button" id="add-all-suggestions" class="primary" hidden>Add all to draft</button><button type="button" id="adjust-suggestions" class="quiet" aria-label="Adjust suggested deliverables" hidden>Adjust</button><button type="button" id="dismiss-suggestions" class="quiet">Dismiss</button></div></div><div id="previous-grouping" class="previous-grouping" hidden><div><strong>Previous grouping</strong><p id="previous-grouping-names"></p></div><button type="button" id="restore-suggestions" class="secondary" aria-describedby="previous-grouping-names" hidden>Use previous grouping</button></div><div id="suggestion-adjustment" class="suggestion-adjustment" hidden></div><div id="suggestion-list"></div></section>
+<section id="suggestion-conditions" class="suggestion-terms" aria-labelledby="suggestion-terms-heading" hidden><div class="suggestion-terms-heading"><h3 id="suggestion-terms-heading">Project terms</h3><span>No separate price</span></div><ul id="suggestion-condition-list"></ul></section>
+<details id="suggestion-coverage" class="suggestion-coverage" hidden><summary id="suggestion-coverage-summary"></summary><ul id="suggestion-missing"></ul></details>
+</section>
+<div class="scope-submit"><div class="scope-total"><strong id="draft-total">Set prices</strong><span id="draft-count">0 deliverables</span></div><button type="submit" class="primary">Start review →</button></div>
+</form></section>
+<section class="panel review-panel" id="review-desk" aria-labelledby="review-heading">
+<h2 id="review-heading" tabindex="-1">Deliveries</h2><div id="summary" class="summary"></div>
+<details id="agreed-project" class="agreed-project" hidden><summary>Brief &amp; budget</summary><h3 id="agreed-project-name"></h3><p id="agreed-project-brief"></p><dl><div><dt>Budget</dt><dd id="agreed-project-cap"></dd></div><div><dt>Allocated</dt><dd id="agreed-project-allocated"></dd></div></dl></details>
+<div id="milestones"></div></section>
+</div>
+<details class="panel audit" id="audit" hidden><summary>Review history</summary><div class="actions"><h2>Activity</h2><button id="export" class="quiet" type="button">Download record ↓</button></div><ol id="events"></ol></details>
+<footer><span>ScopeSignal</span><a href="./scope.html">Scope tools</a><details class="connections"><summary>Connections</summary><dl><div><dt>PayPal</dt><dd id="paypal-connection">Connecting…</dd></div><div><dt>AI</dt><dd id="ai-connection">Connecting…</dd></div></dl><a href="./docs/sandbox-setup.md">Connection setup</a></details></footer>
+</main></body></html>

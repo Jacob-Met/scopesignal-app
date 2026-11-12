@@ -1,0 +1,15 @@
+{
+  "name": "scopesignal",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Local project workspaces, acceptance reviews and auditable Sandbox milestone payments",
+  "scripts": {
+    "test": "node --test",
+    "serve": "node scripts/serve.mjs",
+    "sandbox": "node scripts/sandbox-live.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

@@ -4,6 +4,23 @@ Agree what "done" means before any money moves, then pay for exactly that.
 
 ScopeSignal is a local workspace for freelancers and small studios who are paid by milestone. A brief becomes a short list of priced deliverables, each with a clear finish line. When work arrives it is reviewed beside what was agreed. Only an accepted delivery can be paid, and each payment is one PayPal order for one milestone.
 
+## Try the simulated demo
+
+No PayPal account and no local AI model are needed.
+
+```sh
+npm run demo        # or: node scripts/sandbox-live.mjs --demo
+# open http://127.0.0.1:4273/live.html
+```
+
+1. The project name, the sample brief and the budget are already filled in. Choose **Suggest milestones** and wait a moment for the canned suggestions.
+2. Add each suggestion with **Add deliverable**, give the three milestones prices (800, 900 and 700 USD), then **Start review**.
+3. Attach any small file as the delivered file, write what you checked, and choose **Accept delivery**.
+4. Choose **Create payment**, then **Open PayPal approval**. On the page that says "Simulated PayPal approval", press **Approve**.
+5. Back in ScopeSignal, choose **Confirm** and then **Capture**. The milestone shows as paid.
+
+A yellow badge reads "Simulated demo: no real PayPal call". PayPal (OAuth, create order, read order, capture) and the AI suggestion are answered by small in-process fakes in `demo-mode.mjs`, and the demo workspace is stored in a temporary folder. The real PayPal Sandbox and Ollama setup is described below.
+
 ## How it uses AI
 
 A local language model reads the client's brief and proposes deliverables. Every suggestion carries the client's own sentences beside it, so you can see where it came from. The model only suggests: a person adds, renames, prices and locks the scope, and a person accepts each delivery. The model never approves work and never triggers a payment.

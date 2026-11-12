@@ -177,6 +177,8 @@ export function createSandboxLiveServer(options = {}) {
     localAiPort: options.localAiPort ?? Number(process.env.SCOPESIGNAL_OLLAMA_PORT || 11434),
   };
   const paypalBase = options.paypalBase ?? SANDBOX;
+  // Simulated demo only: the approval page is served by this app, not PayPal.
+  const approvalPrefix = options.demo ? "http://127.0.0.1:" : "https://www.sandbox.paypal.com/";
   // Production cannot switch to live PayPal by changing an environment variable.
   assert(
     paypalBase === SANDBOX || options.allowTestProvider === true,
@@ -601,7 +603,7 @@ export function createSandboxLiveServer(options = {}) {
         assert(
           approval &&
             typeof approval.href === "string" &&
-            approval.href.startsWith("https://www.sandbox.paypal.com/"),
+            approval.href.startsWith(approvalPrefix),
           502,
           "PayPal supplied no trusted Sandbox approval link.",
         );
@@ -725,7 +727,7 @@ export function createSandboxLiveServer(options = {}) {
       const approval = Array.isArray(observed.links) && observed.links.find(link =>
         (link?.rel === "approve" || link?.rel === "payer-action") &&
         typeof link.href === "string" &&
-        link.href.startsWith("https://www.sandbox.paypal.com/"));
+        link.href.startsWith(approvalPrefix));
       if (cp.status === "order_unknown" && observed.id === cp.orderId &&
           ["CREATED", "PAYER_ACTION_REQUIRED", "APPROVED"].includes(observed.status) &&
           observed.purchase_units?.length === 1 &&
@@ -780,6 +782,7 @@ export function createSandboxLiveServer(options = {}) {
         "Only local requests are accepted.",
       );
       const url = new URL(req.url, "http://127.0.0.1");
+      if (options.demo && await options.demo.handle(req, res, url)) return;
       if (url.pathname === "/api/local-suggestions") {
         return await handleLocalSuggestions(req, res, {
           ...localModelSelection(persistedState, config),
@@ -868,7 +871,8 @@ export function createSandboxLiveServer(options = {}) {
           404,
           "Not found.",
         );
-        const bytes = await readFile(file);
+        let bytes = await readFile(file);
+        if (options.demo && extname(file) === ".html") bytes = options.demo.decorateHtml(bytes);
         const type = extname(file) === ".ttf" ? "font/ttf" :
           extname(file) === ".md" || extname(file) === ".txt" ? "text/plain; charset=utf-8" :
           extname(file) === ".html" ? "text/html; charset=utf-8" :
@@ -914,7 +918,8 @@ if (
     500,
     "Invalid local port.",
   );
-  const app = createSandboxLiveServer();
+  const demoMode = process.argv.includes("--demo") || process.env.SCOPESIGNAL_DEMO === "1";
+  const app = createSandboxLiveServer(demoMode ? (await import("../demo-mode.mjs")).demoOptions() : undefined);
   await app.ready;
   app.server.listen(port, "127.0.0.1", () =>
     console.log(

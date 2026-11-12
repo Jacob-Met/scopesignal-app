@@ -1,29 +1,288 @@
-/* Finish shared by light and dark mode: softer geometry, calmer focus, clear primary actions. No layout changes. */
-:root{--r-control:8px;--r-card:12px}
-input,textarea,select,button,.secondary,.primary{border-radius:var(--r-control)!important}
-input[type=checkbox]{border-radius:4px!important}
-#theme-toggle{border-radius:50%!important}
-textarea,input:not([type=checkbox]):not([type=file]),select{transition:border-color .12s,box-shadow .12s}
-:focus-visible{outline:2px solid currentColor!important;outline-offset:2px!important}
-textarea:focus,input:not([type=checkbox]):focus,select:focus{outline:none!important;box-shadow:0 0 0 3px rgba(72,120,220,.28)!important}
-button,.secondary,.primary{font-weight:600;letter-spacing:0;transition:background .12s,transform .06s}
-button:active{transform:translateY(1px)}
-.environment{border-radius:999px!important;padding:3px 10px!important}
-.panel,.review-panel,.agreed-project,details.artifact-inspection,.payment,.payment-panel,[class*=payment-card],.suggestion-preview{border-radius:var(--r-card)!important}
-details.artifact-inspection{overflow:hidden}
-img{border-radius:6px}
-h1{letter-spacing:-.02em!important}
-h2,h3{letter-spacing:-.01em!important}
+/* ScopeSignal product skin. Loaded last; shared by light and dark. Tokens first, then surfaces, then each screen. */
+:root,html[data-theme=light]{
+  --bg:#f2f5fb;--surface:#fff;--surface-2:#f7f9fd;--ink:#0f1a33;--muted:#5b6785;--rule:#e2e8f3;--line:#d5ddec;
+  --accent:#1f4fd8;--accent-h:#1a44bd;--accent-soft:#eaf0ff;--accent-line:#c3d3fb;--on-accent:#fff;
+  --ok:#0b7a46;--ok-soft:#e5f6ed;--ok-line:#b6e3cb;--warn:#8a5a00;--warn-soft:#fff4dc;
+  --sh1:0 1px 2px rgba(15,26,51,.06),0 1px 1px rgba(15,26,51,.04);
+  --sh2:0 1px 2px rgba(15,26,51,.05),0 4px 12px rgba(15,26,51,.06),0 12px 28px rgba(15,26,51,.05);
+  --sh-up:0 -1px 0 rgba(15,26,51,.04),0 -8px 28px rgba(15,26,51,.10);
+  --ring:0 0 0 4px rgba(31,79,216,.20);--paper:var(--bg);
+  --r-ctl:10px;--r-card:16px;--r-sm:8px;
+}
+html[data-theme=dark]{
+  --bg:#0a1124;--surface:#111b36;--surface-2:#0e1730;--ink:#e9eefb;--muted:#9eacc9;--rule:#22305a;--line:#2f3f6e;
+  --accent:#4d7cff;--accent-h:#6a92ff;--accent-soft:#16275a;--accent-line:#2b4388;--on-accent:#fff;
+  --ok:#52d492;--ok-soft:#0f2e22;--ok-line:#1d5c40;--warn:#f2c56b;--warn-soft:#33270b;
+  --sh1:0 1px 2px rgba(0,0,0,.4);--sh2:0 2px 4px rgba(0,0,0,.3),0 12px 28px rgba(0,0,0,.35);
+  --sh-up:0 -8px 28px rgba(0,0,0,.45);--ring:0 0 0 4px rgba(77,124,255,.32);--paper:var(--bg);
+}
+html[data-theme] body{background:var(--bg);color:var(--ink);font-family:Archivo,"Avenir Next",system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+html[data-theme] a{color:var(--accent)}
+html[data-theme] h1{font-size:28px;line-height:1.2;letter-spacing:-.025em;font-weight:720;color:var(--ink)}
+html[data-theme] h2{font-size:17px;line-height:1.3;letter-spacing:-.01em;font-weight:680;margin:0;color:var(--ink)}
+html[data-theme] h3{letter-spacing:-.01em}
 
-/* Light mode: a grey desk with white controls so structure reads without heavy rules */
-html[data-theme=light] body{background:#f5f6f8!important}
-html[data-theme=light] .app-header{background:rgba(255,255,255,.9)!important;border-bottom:1px solid #e2e5ea!important}
-html[data-theme=light] textarea,html[data-theme=light] input:not([type=checkbox]):not([type=file]),html[data-theme=light] select{background:#fff!important;border:1px solid #cdd3db!important;color:#141a24!important}
-html[data-theme=light] textarea:hover,html[data-theme=light] input:not([type=checkbox]):hover,html[data-theme=light] select:hover{border-color:#9aa5b4!important}
-html[data-theme=light] button.primary,html[data-theme=light] .primary{box-shadow:0 1px 2px rgba(20,40,110,.25)}
-html[data-theme=light] button.secondary,html[data-theme=light] .secondary{background:#fff!important;border:1px solid #cdd3db!important;color:#141a24!important}
-html[data-theme=light] button.secondary:hover,html[data-theme=light] .secondary:hover{background:#f1f3f6!important}
+/* Controls */
+html[data-theme] label{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:0;text-transform:none}
+html[data-theme] textarea,html[data-theme] input:not([type=checkbox]):not([type=file]):not([type=radio]),html[data-theme] select{
+  background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:var(--r-ctl);min-height:44px;padding:10px 14px;font-size:15px;box-shadow:var(--sh1);transition:border-color .12s,box-shadow .12s}
+html[data-theme] textarea{min-height:88px;line-height:1.55}
+html[data-theme] textarea:hover,html[data-theme] input:not([type=checkbox]):not([type=file]):hover,html[data-theme] select:hover{border-color:var(--muted)}
+html[data-theme] textarea:focus,html[data-theme] input:not([type=checkbox]):not([type=file]):focus,html[data-theme] select:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
+html[data-theme] :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html[data-theme] input[type=checkbox]{accent-color:var(--accent);border-radius:4px}
+html[data-theme] button,html[data-theme] .secondary,html[data-theme] .primary{border-radius:var(--r-ctl);font-weight:620;font-size:14px;letter-spacing:0;min-height:44px;padding:10px 18px;transition:background .12s,box-shadow .12s,transform .06s,border-color .12s;filter:none}
+html[data-theme] button:active{transform:translateY(1px)}
+html[data-theme] button:not(.quiet):not(.secondary):not(.gate):not(.milestone-gate):not([aria-pressed]),html[data-theme] .primary{background:var(--accent);color:var(--on-accent);border:1px solid var(--accent);box-shadow:0 1px 2px rgba(15,26,51,.18),inset 0 1px 0 rgba(255,255,255,.18)}
+html[data-theme] button:not(.quiet):not(.secondary):not(.milestone-gate):not([aria-pressed]):hover:not(:disabled){background:var(--accent-h);border-color:var(--accent-h)}
+html[data-theme] .secondary{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:var(--sh1)}
+html[data-theme] .secondary:hover:not(:disabled){background:var(--surface-2);border-color:var(--muted)}
+html[data-theme] .quiet{background:transparent;color:var(--muted);border:1px solid transparent;box-shadow:none;padding:8px 12px;min-height:40px;font-weight:600;font-size:13px}
+html[data-theme] .quiet:hover:not(:disabled){background:var(--accent-soft);color:var(--accent)}
+html[data-theme] button:disabled{opacity:.5;box-shadow:none}
+html[data-theme] .state-tools button,html[data-theme] .scope-tools button,html[data-theme] .scope-checkpoints>.actions button,html[data-theme] .draft>button{padding:8px 12px;font-size:13px}
+html[data-theme] #theme-toggle{border-radius:50%;background:var(--surface);color:var(--ink);box-shadow:var(--sh2);border:1px solid var(--line);bottom:88px;min-height:0;padding:0}
+body[data-mode=review] #theme-toggle,body:not([data-mode=compose]) #theme-toggle{bottom:16px!important}
 
-/* Dark mode: lift controls slightly off the page */
-html[data-theme=dark] textarea,html[data-theme=dark] input:not([type=checkbox]):not([type=file]),html[data-theme=dark] select{box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
-html[data-theme=dark] button.primary,html[data-theme=dark] .primary{box-shadow:0 1px 0 rgba(255,255,255,.25) inset}
+/* Header */
+html[data-theme] .app-header{max-width:none;margin:0;min-height:60px;padding:8px max(24px,calc((100vw - 1132px)/2));background:var(--surface);border-bottom:1px solid var(--rule);box-shadow:var(--sh1);position:sticky;top:0;z-index:20;gap:12px}
+html[data-theme] .brand{display:inline-flex;align-items:center;gap:10px;font-size:19px;font-weight:740;letter-spacing:-.03em;color:var(--ink)}
+.brand::before{content:"";flex:none;width:22px;height:22px;margin:0;vertical-align:0;background:linear-gradient(var(--accent),var(--accent)) 0 100%/6px 45% no-repeat,linear-gradient(var(--accent),var(--accent)) 8px 100%/6px 72% no-repeat,linear-gradient(var(--ink),var(--ink)) 16px 100%/6px 100% no-repeat;border-radius:2px}
+html[data-theme=dark] .brand::before{background:linear-gradient(var(--accent),var(--accent)) 0 100%/6px 45% no-repeat,linear-gradient(var(--accent),var(--accent)) 8px 100%/6px 72% no-repeat,linear-gradient(#fff,#fff) 16px 100%/6px 100% no-repeat}
+html[data-theme] .environment{font-size:11px;font-weight:650;letter-spacing:.02em;color:var(--warn);background:var(--warn-soft);border:0;border-radius:999px;padding:3px 10px}
+html[data-theme] .app-header{border-top:0}
+html[data-theme] #project-directory>summary{border:1px solid var(--line);border-radius:var(--r-ctl);background:var(--surface);box-shadow:var(--sh1);min-height:40px;gap:10px}
+html[data-theme] #project-directory>summary strong{font-weight:620}
+html[data-theme] #project-directory[open]>.project-directory-body,html[data-theme] .project-directory-body{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);box-shadow:var(--sh2)}
+html[data-theme] main{max-width:1180px;padding:0 24px 40px}
+html[data-theme] .workspace-heading{padding:28px 0 20px}
+html[data-theme] footer{border-top:1px solid var(--rule);color:var(--muted);margin-top:40px}
+
+/* Composer: form card + deliverables card */
+html[data-theme] #plan{gap:24px;grid-template-columns:minmax(320px,.9fr) minmax(0,1.5fr);align-items:start}
+html[data-theme] .scope-brief,html[data-theme] .scope-checkpoints{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);box-shadow:var(--sh2);padding:24px;min-width:0}
+html[data-theme] .scope-brief{padding-right:24px}
+html[data-theme] .scope-tools,html[data-theme] .scope-checkpoints>.actions{margin-bottom:16px;min-height:40px}
+html[data-theme] .scope-brief label{margin:0 0 16px}
+html[data-theme] .scope-brief label input,html[data-theme] .scope-brief label select,html[data-theme] .scope-brief label textarea{margin-top:6px}
+html[data-theme] .scope-brief textarea{min-height:150px}
+html[data-theme] .scope-budget{grid-template-columns:minmax(0,1fr);gap:12px;align-items:start;margin-top:4px}
+html[data-theme] .scope-budget input{font-variant-numeric:tabular-nums}
+html[data-theme] .suggest-controls{flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px}
+html[data-theme] .suggest-controls label{font-weight:500;color:var(--muted);font-size:13px;margin:0}
+html[data-theme] #suggest{width:100%;justify-content:center;text-align:center;margin:0;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-line);box-shadow:none;font-weight:650}
+html[data-theme] #suggest:hover:not(:disabled){background:var(--accent-line)}
+html[data-theme] .suggest-controls .quiet{margin:0 auto 0 -4px}
+html[data-theme] .note,html[data-theme] #suggest-status{color:var(--muted);font-size:13px;margin:8px 0 0}
+html[data-theme] .model-connection{background:var(--surface-2);border:1px solid var(--rule);border-radius:var(--r-card)}
+html[data-theme] #rows{display:grid;gap:12px}
+html[data-theme] .draft{border:1px solid var(--rule);border-radius:14px;background:var(--surface-2);padding:16px;grid-template-columns:minmax(0,1fr) 140px;gap:6px 12px;align-items:end;position:relative}
+html[data-theme] .draft:focus-within{border-color:var(--accent-line);background:var(--surface);box-shadow:var(--sh2)}
+html[data-theme] .draft>strong{grid-column:1/-1;display:flex;align-items:center;gap:8px;font:700 12px/1.4 Archivo,system-ui,sans-serif;letter-spacing:.02em;text-transform:none;color:var(--accent);padding-right:72px;margin-bottom:2px}
+html[data-theme] .draft>button{position:absolute;top:8px;right:8px;margin:0;min-height:32px;padding:4px 10px;font-size:12px}
+html[data-theme] .draft>label input{min-height:46px;margin-top:6px}
+html[data-theme] .draft>label:nth-of-type(2) input{font:640 17px/1.4 Archivo,system-ui,sans-serif;font-variant-numeric:tabular-nums;text-align:right}
+html[data-theme] .draft>label:nth-of-type(2)::before{content:none}
+html[data-theme] .draft-criteria{margin-top:4px}
+html[data-theme] .draft-criteria>summary{color:var(--muted);font-size:13px;font-weight:600;padding:4px 0}
+html[data-theme] .draft-criteria label{margin:6px 0 0}
+html[data-theme] .draft-criteria textarea{min-height:76px}
+html[data-theme] .draft-recovery{margin:12px 0 0}
+html[data-theme] .scope-submit{left:50%;right:auto;transform:translateX(-50%);bottom:16px;width:min(1132px,calc(100vw - 32px));padding:12px 14px 12px 24px;border:1px solid var(--rule);border-radius:18px;background:var(--surface);box-shadow:var(--sh-up),var(--sh2);z-index:15}
+html[data-theme] .scope-submit>button{min-width:200px;min-height:50px;font-size:15px;border-radius:12px}
+html[data-theme] .scope-total{align-items:baseline;gap:14px}
+html[data-theme] .scope-total strong{font:720 26px/1.2 Archivo,system-ui,sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ink)}
+html[data-theme] .scope-total span{font-size:13px;color:var(--muted);background:var(--surface-2);border:1px solid var(--rule);border-radius:999px;padding:2px 10px}
+body[data-mode=compose] main{padding-bottom:128px}
+/* Suggested work */
+html[data-theme] .suggestion-preview{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:14px;padding:16px;margin:16px 0 0}
+html[data-theme] .suggestion-toolbar h3{font-size:15px;font-weight:700}
+html[data-theme] .suggestion{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px;margin-top:12px;box-shadow:var(--sh1)}
+html[data-theme] .suggestion h4{font-size:16px;font-weight:660;margin:0 0 8px}
+html[data-theme] .suggestion .evidence,html[data-theme] .evidence{color:var(--muted);font-size:14px;line-height:1.55}
+html[data-theme] .suggestion-terms,html[data-theme] .suggestion-coverage{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:14px 16px}
+
+/* Review: header, summary chips */
+html[data-theme] .review-panel{background:transparent;border:0;box-shadow:none;padding:0}
+html[data-theme] .review-panel>h2{display:none}
+html[data-theme] .summary{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:620;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:6px 14px;box-shadow:var(--sh1);margin:0 0 4px}
+html[data-theme] .state-tools{margin:0 0 16px}
+html[data-theme] .state-tools #notice{background:var(--ok-soft);color:var(--ok);border:1px solid var(--ok-line);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:620;margin:0 auto 0 0}
+html[data-theme] .state-tools #notice.bad{background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn);border-radius:12px}
+html[data-theme] .handoff-tools>summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-ctl);box-shadow:var(--sh1);padding:8px 14px;font-weight:620}
+html[data-theme] .handoff-popover,html[data-theme] .handoff-menu{background:var(--surface);border-radius:var(--r-card)}
+html[data-theme] .agreed-project,html[data-theme] .client-feedback,html[data-theme] details#restore-workspace{display:inline-block;vertical-align:middle;background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:0 14px;margin:0 6px 6px 0;box-shadow:var(--sh1);font-size:13px}
+html[data-theme] .agreed-project[open],html[data-theme] .client-feedback[open]{display:block;border-radius:14px;padding:4px 16px 12px}
+html[data-theme] .agreed-project summary,html[data-theme] .client-feedback summary{padding:5px 0;color:var(--muted);font-weight:620}
+html[data-theme] details#restore-workspace{display:block;border-radius:14px;padding:12px 16px}
+
+/* Milestone stepper */
+html[data-theme] .milestone-gates{position:sticky;top:61px;z-index:6;display:flex;gap:6px;padding:6px;margin:16px 0 8px;background:var(--surface-2);border:1px solid var(--rule);border-radius:16px;box-shadow:var(--sh1);overflow-x:auto}
+html[data-theme] .milestone-gate{flex:1 1 0;max-width:none;min-height:64px;display:grid;grid-template-columns:34px minmax(0,1fr) auto;grid-template-rows:auto;align-items:center;gap:12px;padding:10px 16px 10px 12px;border-radius:12px;background:transparent;color:var(--muted);border:1px solid transparent;box-shadow:none;text-align:left}
+html[data-theme] .milestone-gate::before{content:none}
+html[data-theme] .milestone-gate:hover{background:var(--surface);border-color:var(--rule)}
+html[data-theme] .gate-number{grid-row:auto;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--surface);border:1.5px solid var(--line);color:var(--muted);font:700 12px/1 Archivo,system-ui,sans-serif;align-self:center}
+html[data-theme] .gate-title{background:none;padding:0;font-size:13.5px;font-weight:640;line-height:1.3;color:var(--ink);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+html[data-theme] .gate-amount{font:660 13px/1 Archivo,system-ui,sans-serif;font-variant-numeric:tabular-nums;padding:0;color:var(--muted)}
+html[data-theme] .milestone-gate[aria-current=true]{background:var(--surface);border-color:var(--accent-line);box-shadow:var(--sh2),inset 0 -3px 0 var(--accent);color:var(--ink)}
+html[data-theme] .milestone-gate[aria-current=true] .gate-number{background:var(--accent);border-color:var(--accent);color:#fff}
+html[data-theme] .milestone-gate[aria-current=true] .gate-title{background:none}
+html[data-theme] .milestone-gate[aria-current=true] .gate-amount{color:var(--accent)}
+html[data-theme] .milestone-gate:is([data-state=approved],[data-state=awaiting_buyer]) .gate-number{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+html[data-theme] .milestone-gate[data-state=approved] .gate-number{font-size:0}
+html[data-theme] .milestone-gate[data-state=approved] .gate-number::after,html[data-theme] .milestone-gate[data-state=captured] .gate-number::after{content:"";width:5px;height:10px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+html[data-theme] .milestone-gate[data-state=captured] .gate-number{background:var(--ok);border-color:var(--ok);color:#fff;font-size:0}
+html[data-theme] .milestone-gate[data-state=captured] .gate-amount{color:var(--ok)}
+html[data-theme] .milestone-navigation{background:transparent;margin:0 0 4px}
+html[data-theme] .milestone-navigation>summary{color:var(--muted);font-size:12px;cursor:pointer}
+html[data-theme] .milestone-navigation select{border-radius:var(--r-ctl);background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+
+/* Milestone body */
+html[data-theme] .milestone{border:0;padding:8px 0 0;margin:0}
+html[data-theme] .milestone h3{font-size:22px;font-weight:700;letter-spacing:-.02em;margin:0;color:var(--ink)}
+html[data-theme] .milestone .state{display:inline-flex;align-items:center;margin-top:6px;font-size:12px;font-weight:650;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:999px;padding:2px 10px}
+html[data-theme] .milestone-amount{font-size:22px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--ink)}
+html[data-theme] .milestone.is-reviewing>.milestone-identity{margin:8px 0 16px;align-items:center}
+html[data-theme] .milestone .evidence{color:var(--ink)}
+html[data-theme] .review-decision-jump{display:none}
+html[data-theme] .artifact-inspection{background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:var(--r-card);box-shadow:var(--sh2);overflow:hidden;margin:0}
+html[data-theme] .artifact-inspection>summary{padding:14px 18px;font-size:14px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink);background:var(--surface);border-bottom:0}
+html[data-theme] .artifact-inspection[open]>summary{border-bottom:1px solid var(--rule)}
+html[data-theme] .artifact-inspection label,html[data-theme] .artifact-version-name{color:var(--muted)}
+html[data-theme] .artifact-inspection input[type=file]{background:var(--surface-2);border:1px dashed var(--line);border-radius:var(--r-ctl);color:var(--muted)}
+html[data-theme] .artifact-inspection input[type=file]::file-selector-button{background:var(--surface);color:var(--ink);border:0;border-right:1px solid var(--line);border-radius:0}
+html[data-theme] .artifact-toolbar{background:var(--surface-2);border-bottom:1px solid var(--rule);padding:8px 12px;gap:6px}
+html[data-theme] .artifact-inspection .artifact-toolbar button{min-height:36px;font-size:13px;padding:6px 12px}
+html[data-theme] .artifact-toolbar button:last-child{margin-left:auto}
+html[data-theme] .artifact-toolbar button[data-action=attach-reviewed-file]{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:var(--sh1)}
+html[data-theme] .artifact-files-menu{border-bottom:1px solid var(--rule)}
+html[data-theme] .artifact-files-menu>summary{padding:10px 18px;font-size:13px;font-weight:620;color:var(--muted)}
+html[data-theme] .artifact-file-callout{background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:12px}
+html[data-theme] .artifact-file-role{font-weight:700;text-transform:none;letter-spacing:0;color:var(--ink)}
+html[data-theme] .paired-image-controls{display:inline-flex;gap:2px;padding:3px;margin:12px 16px;background:var(--surface-2);border:1px solid var(--rule);border-radius:10px}
+html[data-theme] .paired-image-controls button{min-height:30px;padding:4px 14px;font-size:13px;border-radius:7px;background:transparent;color:var(--muted);border:0;box-shadow:none}
+html[data-theme] .paired-image-controls button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:var(--sh1)}
+html[data-theme] .artifact-image-viewport{background:var(--surface-2);border-radius:12px;max-width:calc(100% - 0px)}
+html[data-theme] .artifact-version img{background:var(--surface-2);border-radius:10px;max-height:440px}
+html[data-theme] .artifact-preview>.artifact-version{margin:0 16px 16px}
+html[data-theme] .artifact-retention{border-top:1px solid var(--rule);padding:10px 18px;font-size:13px;color:var(--muted)}
+html[data-theme] .delivery-review-workspace .artifact-toolbar:first-of-type{background:var(--surface-2)}
+
+/* Review box */
+html[data-theme] .milestone-review{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);box-shadow:var(--sh2);padding:20px}
+html[data-theme] .milestone-review textarea{min-height:120px;margin-top:8px}
+html[data-theme] .milestone-review>label{font-size:14px;font-weight:700}
+html[data-theme] .milestone-review>.actions{margin:12px 0 4px;justify-content:flex-start}
+html[data-theme] .milestone-review [data-action=accept-delivery]{min-width:180px;min-height:48px;font-size:15px;background:var(--accent);border-radius:12px}
+html[data-theme] .review-criteria-details,html[data-theme] .revision-request{background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;padding:0 14px;margin:0 0 14px;font-size:13px}
+html[data-theme] .revision-request{margin:14px 0 0}
+html[data-theme] .review-criteria-details summary,html[data-theme] .revision-request summary{padding:10px 0;font-weight:640;cursor:pointer;color:var(--muted)}
+html[data-theme] .revision-request[open],html[data-theme] .review-criteria-details[open]{padding-bottom:12px}
+html[data-theme] .review-file-return{display:none}
+html[data-theme] .overline{font:700 11px/1.4 Archivo,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+
+/* Payment: the climax */
+html[data-theme] .payment-card{--payment-ink:var(--ink);--payment-muted:var(--muted);--payment-line:var(--rule);background:var(--surface);background-image:none;border:1px solid var(--accent-line);border-radius:20px;box-shadow:var(--sh2),0 0 0 4px var(--accent-soft);color:var(--ink);padding:24px;position:relative;overflow:hidden}
+html[data-theme] .payment-card::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--accent)}
+html[data-theme] .payment-heading{border-bottom:0;padding:0;align-items:center}
+html[data-theme] .payment-eyebrow{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--muted)}
+html[data-theme] .payment-status{font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:999px;padding:3px 12px}
+html[data-theme] .payment-total{font:740 46px/1.1 Archivo,system-ui,sans-serif;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin:20px 0 24px;padding:0;border:0;background:none;color:var(--ink)}
+html[data-theme] .payment-card>button,html[data-theme] .payment-card>a,html[data-theme] .payment-card .buyer-confirm>button{width:100%;min-height:52px;border-radius:12px;background:var(--accent);color:#fff;border:1px solid var(--accent);font-size:15px;font-weight:680;box-shadow:0 2px 6px rgba(31,79,216,.35),inset 0 1px 0 rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;text-decoration:none}
+html[data-theme] .payment-card>button:hover:not(:disabled),html[data-theme] .payment-card>a:hover,html[data-theme] .payment-card .buyer-confirm>button:hover:not(:disabled){background:var(--accent-h);filter:none}
+html[data-theme] .payment-card button:disabled{opacity:.6;background:var(--surface-2);color:var(--muted);border-color:var(--rule);box-shadow:none}
+html[data-theme] .payment-card .payment-check{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:var(--sh1);margin-top:10px}
+html[data-theme] .payment-card .capture-label{font-size:14px;color:var(--ink)}
+html[data-theme] .payment-card :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+html[data-theme] .payment-connection{color:var(--muted)}
+html[data-theme] .payment-details{border-top:1px solid var(--rule)}
+html[data-theme] .payment-details summary{color:var(--muted)}
+html[data-theme] .payment-details dd{color:var(--ink)}
+html[data-theme] .payment-complete{background:var(--surface);border:1px solid var(--ok-line);border-left:1px solid var(--ok-line);box-shadow:var(--sh2),0 0 0 4px var(--ok-soft)}
+html[data-theme] .payment-complete::before{background:var(--ok)}
+html[data-theme] .payment-complete .payment-status{color:var(--ok);background:var(--ok-soft);border-color:var(--ok-line)}
+html[data-theme] .payment-complete .payment-total{color:var(--ok)}
+html[data-theme] .milestone.has-payment{gap:20px 28px}
+html[data-theme] .accepted-review{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);padding:14px 18px;box-shadow:var(--sh1)}
+html[data-theme] .audit{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);padding:4px 20px;box-shadow:var(--sh1);margin-top:24px}
+html[data-theme] .audit>summary{padding:12px 0;font-weight:650}
+
+/* ---- Round 2: beat the older ID-specific rules ---- */
+html[data-theme] #composer label,html[data-theme] .scope-brief label{font-size:13px;line-height:1.4;letter-spacing:0;text-transform:none;font-weight:620;color:var(--ink)}
+html[data-theme] #composer .suggest-controls label{font-size:13px;font-weight:500;color:var(--muted)}
+html[data-theme] #composer :is(input,textarea,select){background:var(--surface);border:1px solid var(--line);color:var(--ink);letter-spacing:0}
+html[data-theme] #composer :is(input,textarea,select):focus{border-color:var(--accent);background:var(--surface);box-shadow:var(--ring);outline:none}
+html[data-theme] #composer :focus-visible,html[data-theme] :is(input,textarea,select):focus-visible{outline:none;box-shadow:var(--ring)}
+html[data-theme] button:focus-visible,html[data-theme] summary:focus-visible,html[data-theme] a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;box-shadow:none}
+html[data-theme] #composer #project{font-size:16px;font-weight:620}
+html[data-theme] #composer #brief{min-height:150px;line-height:1.6;font-size:15px}
+html[data-theme] #composer .draft>label:first-of-type input{font-size:16px;font-weight:600}
+html[data-theme] .draft::before{content:none}
+html[data-theme] .scope-brief{position:static;max-height:none;overflow:visible;border-right:1px solid var(--rule)}
+html[data-theme] #composer .suggest-controls{align-items:center}
+html[data-theme] #composer #suggest{min-height:46px;margin:0}
+html[data-theme] #composer #choose-model,html[data-theme] #composer #organize-brief{min-height:36px;padding:4px 10px;margin:0}
+html[data-theme] .scope-tools h2,html[data-theme] .scope-checkpoints h2,html[data-theme] h2{font-size:17px;letter-spacing:-.01em;text-transform:none;font-weight:680}
+html[data-theme] .draft>strong{font:700 12px/1.4 Archivo,system-ui,sans-serif;letter-spacing:.02em;text-transform:none;color:var(--accent)}
+html[data-theme] .draft-gates{margin:0 0 16px}
+html[data-theme] .milestone-gates{margin-top:12px}
+html[data-theme] .draft-gates .gate-number{border-style:dashed}
+html[data-theme] .payment-eyebrow{letter-spacing:.06em}
+
+/* ---- Round 3 ---- */
+html[data-theme] .milestone-gates{position:relative;top:auto}
+html[data-theme] .artifact-inspection>summary{border:0;border-radius:0;box-shadow:none;background:var(--surface);min-height:0;display:block;padding:14px 20px}
+html[data-theme] .artifact-inspection>summary::marker{color:var(--muted)}
+
+/* ---- Round 4: project header chips, review-file card, nested cards ---- */
+html[data-theme] .review-panel{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+html[data-theme] .review-panel>*{flex:0 0 100%;min-width:0}
+html[data-theme] .review-panel>.summary,html[data-theme] .review-panel>.agreed-project:not([open]),html[data-theme] .review-panel>.client-feedback:not([open]){flex:0 0 auto}
+html[data-theme] .summary{order:-1;min-height:36px;margin:0}
+html[data-theme] .agreed-project,html[data-theme] .client-feedback{display:block;margin:0;padding:0 14px;min-height:36px;border-radius:999px}
+html[data-theme] .agreed-project:not([open])>summary,html[data-theme] .client-feedback:not([open])>summary{padding:7px 0;line-height:1.4}
+html[data-theme] .agreed-project[open],html[data-theme] .client-feedback[open]{border-radius:14px;padding:4px 16px 14px}
+html[data-theme] .milestone-gates{margin:8px 0 0}
+html[data-theme] .milestone-navigation{margin:0}
+html[data-theme] details#restore-workspace{background:none;border:0;box-shadow:none;border-radius:0;padding:0;margin:0 0 8px;font-size:13px;color:var(--muted);max-width:none;display:block}
+html[data-theme] details#restore-workspace>summary{padding:4px 0;cursor:pointer}
+html[data-theme] details#restore-workspace[open]{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 16px}
+html[data-theme] .state-tools{align-items:center}
+html[data-theme] .handoff-tools>summary{min-height:40px;display:flex;align-items:center}
+html[data-theme] .accepted-review{padding:0;overflow:hidden}
+html[data-theme] .accepted-review>summary{padding:14px 20px}
+html[data-theme] .accepted-review .artifact-inspection{border:0;box-shadow:none;border-radius:0}
+html[data-theme] .artifact-inspection>summary{display:list-item;list-style-position:inside}
+html[data-theme] .artifact-inspection-tools{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;padding:8px 12px 8px 18px;background:var(--surface-2);border-bottom:1px solid var(--rule)}
+html[data-theme] .artifact-inspection-tools .artifact-toolbar{background:none;border:0;padding:0}
+html[data-theme] .artifact-files-menu{border:0}
+html[data-theme] .artifact-files-menu>summary{padding:8px 0;color:var(--ink);font-weight:620}
+html[data-theme] .artifact-preview,html[data-theme] .artifact-version{border:0}
+html[data-theme] .review-draft-recovery button,html[data-theme] .correction-draft-recovery button,html[data-theme] .draft-recovery button{background:none;border:0;box-shadow:none;color:var(--muted);min-height:32px;padding:4px 8px;font-size:12px}
+html[data-theme] .review-draft-recovery button:hover:not(:disabled),html[data-theme] .correction-draft-recovery button:hover:not(:disabled){background:var(--accent-soft);color:var(--accent)}
+html[data-theme] #composer select,html[data-theme] select{border-radius:var(--r-ctl);appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 15px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:38px}
+html[data-theme] .state-tools #notice:empty{display:none}
+
+/* ---- Round 5 ---- */
+html[data-theme] select,html[data-theme] #composer select,html[data-theme] .milestone-navigation select,html[data-theme] .model-connection select{border-radius:var(--r-ctl)!important}
+html[data-theme] textarea,html[data-theme] input:not([type=checkbox]):not([type=file]){border-radius:var(--r-ctl)!important}
+html[data-theme] body[data-mode=review] .state-tools,html[data-theme][data-theme] body[data-mode=review] .state-tools{flex-wrap:nowrap;width:auto;gap:8px;top:22px;right:24px;justify-content:flex-end;align-items:center}
+html[data-theme] body[data-mode=review] .workspace-heading{padding:24px 340px 16px 0;min-height:76px}
+html[data-theme] body[data-mode=review] .state-tools button,html[data-theme] body[data-mode=review] .handoff-tools>summary{min-height:40px;padding:8px 14px;font-size:13px}
+html[data-theme] body[data-mode=review] .state-tools #notice{white-space:nowrap}
+html[data-theme] body[data-mode=review] .client-feedback:not([open]),html[data-theme] body[data-mode=review] .agreed-project:not([open]){display:block!important;margin:0!important;border:1px solid var(--rule)!important;padding:0 14px!important;font-size:13px}
+html[data-theme] body[data-mode=review] .client-feedback:not([open])>summary{font-size:13px;padding:7px 0;line-height:1.4}
+html[data-theme] .accepted-review{padding:14px 18px;overflow:visible}
+html[data-theme] .accepted-review>summary{padding:0 0 6px}
+html[data-theme] .review-draft-recovery button,html[data-theme] .correction-draft-recovery button,html[data-theme] .milestone .review-draft-recovery button{background:none!important;border:0!important;box-shadow:none!important;color:var(--muted)!important}
+html[data-theme] .accepted-delivery-workspace .milestone-review{background:none;border:0;box-shadow:none;padding:0}
+html[data-theme] .handoff-tools>summary{white-space:nowrap}
+html[data-theme] .accepted-delivery-workspace .artifact-inspection>summary{padding:16px 20px}
+/* ---- Round 6: fit the review box above the 720px fold ---- */
+html[data-theme] body[data-mode=review] .workspace-heading{padding:16px 340px 8px 0;min-height:56px}
+html[data-theme] body[data-mode=review] .state-tools{top:14px}
+html[data-theme] .milestone-gates{margin-top:4px}
+html[data-theme] .milestone.is-reviewing>.milestone-identity{margin:4px 0 12px}
+html[data-theme] .milestone-review textarea{min-height:96px}
+html[data-theme] .milestone-navigation>summary{padding:4px 0}
+html[data-theme] details#restore-workspace{margin:0 0 4px}

@@ -21,6 +21,12 @@ npm run demo        # or: node scripts/sandbox-live.mjs --demo
 
 A yellow badge reads "Simulated demo: no real PayPal call". PayPal (OAuth, create order, read order, capture) and the AI suggestion are answered by small in-process fakes in `demo-mode.mjs`, and the demo workspace is stored in a temporary folder. The real PayPal Sandbox and Ollama setup is described below.
 
+## Scope watch: what the client actually said
+
+Open `/drift.html` (or the **Scope watch** link in the header). Each project shows a mark, **Drifting** or **On scope**. Inside a project, paste the chat or email thread, or add a recording of the client call (transcribed by a local speech-to-text service, `SCOPESIGNAL_LISTEN_URL`, default `http://127.0.0.1:5621/listen`). The conversation is shown as a timeline and the exact sentences that ask for something outside the agreed scope are highlighted. Each one is a card: swipe or tap **In scope** or **Change order**. The local model drafts a price and a "Ready when" line, and you can change either by typing or saying a correction ("make it $350", "ready when the PDF is print-ready"). Accepted change orders roll into one PayPal request through the existing order path.
+
+Try it in the simulated demo: on the Scope watch page choose **Add the sample bakery project**, open it, **Use sample thread**, **Find the asks**, decide the cards, then **Create PayPal request**. Without a model the asks are found by plain rules and labelled that way.
+
 ## How it uses AI
 
 A local language model reads the client's brief and proposes deliverables. Every suggestion carries the client's own sentences beside it, so you can see where it came from. The model only suggests: a person adds, renames, prices and locks the scope, and a person accepts each delivery. The model never approves work and never triggers a payment.

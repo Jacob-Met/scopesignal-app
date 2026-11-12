@@ -7,6 +7,7 @@ import { readFile, writeFile, rename, mkdir, unlink } from "node:fs/promises";
 import { dirname, resolve, extname, sep } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import { randomUUID, randomBytes, createHash } from "node:crypto";
+import { createDrift } from '../src/drift.mjs';
 import { validateScopeDraft } from "../src/scope-plan.mjs";
 import { validateBriefResult } from "../src/workers-ai.mjs";
 
@@ -764,6 +765,10 @@ export function createSandboxLiveServer(options = {}) {
     return { state: publicState(workspace, config, state.id) };
   }
 
+  const drift = createDrift({
+    storePath, getWorkspace: () => persistedState, getCsrf: () => csrf, getPort: () => server.address()?.port,
+    getModel: () => localModelSelection(persistedState, config), modelFetch: options.localAiFetchImpl ?? fetch,
+  });
   const server = createServer(async (req, res) => {
     const sendJSON = (status, data) => {
       res.writeHead(status, {
@@ -783,6 +788,7 @@ export function createSandboxLiveServer(options = {}) {
       );
       const url = new URL(req.url, "http://127.0.0.1");
       if (options.demo && await options.demo.handle(req, res, url)) return;
+      if (url.pathname === "/api/drift" || url.pathname.startsWith("/api/drift/")) return await drift.handle(req, res, url);
       if (url.pathname === "/api/local-suggestions") {
         return await handleLocalSuggestions(req, res, {
           ...localModelSelection(persistedState, config),

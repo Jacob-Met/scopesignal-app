@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scope watch · ScopeSignal</title><link rel="stylesheet" href="./live.css"><link rel="stylesheet" href="./live.light.css" data-theme-sheet="light"><link rel="stylesheet" href="./polish.css"><link rel="stylesheet" href="./drift.css"><link rel="stylesheet" href="./drift.light.css" data-theme-sheet="light"><script type="module" src="./drift.js"></script><script src="./theme.js"></script></head>
+<body class="drift" data-ready="false">
+<header class="app-header"><a class="brand" href="./live.html">ScopeSignal</a><span class="environment">Sandbox</span>
+<nav class="drift-nav" aria-label="Sections"><a href="./drift.html" id="nav-watch" aria-current="page">Scope watch</a><a href="./live.html" id="nav-workspace">Workspace</a></nav></header>
+<main id="drift-main">
+<section id="home" aria-labelledby="home-title">
+<h1 id="home-title">Scope watch</h1>
+<p class="lede">Drop in what the client actually said. See where they asked for more than was agreed, and bill for it.</p>
+<ul id="home-list" class="home-list"></ul>
+<div id="home-empty" class="empty" hidden><p>No projects yet. Start with the sample to see how it works.</p></div>
+<div class="home-actions"><button type="button" id="load-sample" class="soft">Add the sample bakery project</button><a class="soft-link" href="./live.html?project=new">Start a real project</a></div>
+<p id="home-status" class="status" role="status" aria-live="polite"></p>
+</section>
+
+<section id="project" hidden aria-labelledby="project-title">
+<div class="proj-head"><button type="button" id="back" class="back" aria-label="Back to projects">‹ Projects</button><span id="project-pill" class="pill"></span></div>
+<h1 id="project-title"></h1>
+<details id="agreed" class="agreed"><summary>What was agreed</summary><ul id="agreed-list"></ul></details>
+
+<details id="intake" class="intake" open>
+<summary>What did the client say?</summary>
+<label class="sr" for="thread-text">Paste the chat or email thread</label>
+<textarea id="thread-text" rows="6" placeholder="Paste the chat or email thread here&#10;Mara: Logo looks great.&#10;Mara: Can we also get a shopfront banner?"></textarea>
+<div class="intake-row">
+<label class="file-btn" for="recording">Add call recording<input id="recording" type="file" accept="audio/*,video/*"></label>
+<button type="button" id="use-sample-thread" class="soft">Use sample thread</button>
+<button type="button" id="find-asks" class="go">Find the asks</button>
+</div>
+<p id="intake-status" class="status" role="status" aria-live="polite"></p>
+</details>
+
+<section id="timeline-wrap" hidden aria-labelledby="timeline-title">
+<div class="sec-head"><h2 id="timeline-title">The conversation</h2><span id="reader-note" class="muted"></span></div>
+<ol id="timeline" class="timeline"></ol>
+</section>
+
+<section id="deck-wrap" hidden aria-labelledby="deck-title">
+<div class="sec-head"><h2 id="deck-title">Asks to decide</h2><span id="deck-count" class="muted"></span></div>
+<div id="deck" class="deck"></div>
+<ul id="decided" class="decided"></ul>
+</section>
+
+<div id="bill-bar" class="bill-bar" hidden>
+<div><strong id="bill-total">$0</strong><span id="bill-count"></span></div>
+<button type="button" id="bill-go" class="go">Create PayPal request</button>
+</div>
+<section id="bill-result" class="bill-result" hidden aria-live="polite"></section>
+<p id="project-status" class="status" role="status" aria-live="polite"></p>
+</section>
+</main>
+</body>
+</html>

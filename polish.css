@@ -286,3 +286,6 @@ html[data-theme] .milestone.is-reviewing>.milestone-identity{margin:4px 0 12px}
 html[data-theme] .milestone-review textarea{min-height:96px}
 html[data-theme] .milestone-navigation>summary{padding:4px 0}
 html[data-theme] details#restore-workspace{margin:0 0 4px}
+
+/* Link from the workspace to Scope watch */
+html[data-theme] .scope-watch-link{padding:8px 14px;border-radius:999px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-line);font-size:14px;font-weight:650;text-decoration:none;white-space:nowrap}
